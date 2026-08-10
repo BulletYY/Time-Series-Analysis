@@ -81,19 +81,8 @@ The objective is to move from **raw observations to a statistically validated fo
 
 #### Time-series decomposition
 
-The series will be decomposed into interpretable components such as:
+The series will be decomposed using STL-decomposition.
 
-\[
-y_t = T_t + S_t + R_t,
-\]
-
-where:
-
-- \(T_t\) — trend,
-- \(S_t\) — seasonal component,
-- \(R_t\) — remainder / irregular component.
-
-Both classical decomposition and, where appropriate, STL-style decomposition can be considered.
 
 #### Stationarity analysis
 
