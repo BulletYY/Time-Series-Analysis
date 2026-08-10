@@ -1,0 +1,40 @@
+import numpy as np
+import pandas as pd
+
+
+
+def hurst_rs(returns, windows=(20, 40, 80, 160, 320)): # verbose param to be added 
+    r = np.asarray(returns)
+    
+    log_n = []
+    log_rs = []
+
+    for n in windows:
+        rs_values = []
+
+        # window division
+        for start in range(0, len(r) - n + 1, n):
+            block = r[start:start+n]
+
+            mean = block.mean()
+            deviations = block - mean
+
+            cumulative = np.cumsum(deviations)
+
+            R = cumulative.max() - cumulative.min()
+            S = block.std(ddof=1)
+
+            if S > 0: # in case of 
+                rs_values.append(R / S)
+
+        if len(rs_values) > 0:
+            avg_rs = np.mean(rs_values)
+
+            log_n.append(np.log(n))
+            log_rs.append(np.log(avg_rs))
+            
+            # to be i guess added verbose with summary from statsmodels
+
+    H, intercept = np.polyfit(log_n, log_rs, 1)
+
+    return H
