@@ -24,7 +24,7 @@ def hurst_rs(returns, windows=(20, 40, 80, 160, 320)): # verbose param to be add
             R = cumulative.max() - cumulative.min()
             S = block.std(ddof=1)
 
-            if S > 0: # in case of 
+            if S == 0: # in case of 
                 rs_values.append(R / S)
 
         if len(rs_values) > 0:
