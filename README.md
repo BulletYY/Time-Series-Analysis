@@ -23,7 +23,6 @@ The Hurst exponent is commonly used as a diagnostic of the dependence structure 
 - \(H \approx 0.5\) — behaviour consistent with a process without clear long-range dependence,
 - \(H > 0.5\) — **persistent** behaviour; movements tend to be followed by movements in the same direction.
 
-> The Hurst exponent should be treated as a diagnostic measure rather than, by itself, a formal statistical test of mean reversion or long memory.
 
 ### Methodology
 
@@ -52,40 +51,6 @@ The estimated slope is the Hurst exponent:
 \hat H = \hat\beta_1.
 \]
 
-### Current implementation
-
-```python
-import numpy as np
-
-
-def hurst_rs(returns, windows=(20, 40, 80, 160, 320)):
-    r = np.asarray(returns)
-
-    log_n = []
-    log_rs = []
-
-    for n in windows:
-        rs_values = []
-
-        for start in range(0, len(r) - n + 1, n):
-            block = r[start:start + n]
-
-            deviations = block - block.mean()
-            cumulative = np.cumsum(deviations)
-
-            R = cumulative.max() - cumulative.min()
-            S = block.std(ddof=1)
-
-            if S > 0:
-                rs_values.append(R / S)
-
-        if rs_values:
-            log_n.append(np.log(n))
-            log_rs.append(np.log(np.mean(rs_values)))
-
-    H, intercept = np.polyfit(log_n, log_rs, 1)
-    return H
-```
 
 ### Example usage
 
@@ -112,14 +77,7 @@ The second project will be an end-to-end time-series modelling and forecasting w
 
 The objective is to move from **raw observations to a statistically validated forecasting model**, with particular emphasis on decomposition, stationarity and seasonal dynamics.
 
-### Planned workflow
 
-#### Data preparation and exploratory analysis
-
-- data loading and cleaning,
-- missing-value and outlier inspection,
-- visualization of the series and its transformations,
-- summary statistics and temporal patterns.
 
 #### Time-series decomposition
 
@@ -197,16 +155,6 @@ The final section will compare candidate specifications and present the selected
 
 ---
 
-## Repository Structure
-
-```text
-Time-Series-Analysis/
-│
-├── hurst_exponent      # R/S implementation of the Hurst exponent
-├── TSA.ipynb           # Time-series analysis project — currently under development
-└── README.md
-```
-
 ## Tech Stack
 
 - **Python**
@@ -215,19 +163,4 @@ Time-Series-Analysis/
 - **Matplotlib**
 - **statsmodels** *(planned for TSA and Hurst inference/diagnostics)*
 
-## Roadmap
-
-- [x] Implement Hurst exponent with R/S analysis
-- [ ] Add Hurst regression diagnostics and visualization
-- [ ] Select and prepare the dataset for the TSA project
-- [ ] Perform decomposition and stationarity analysis
-- [ ] Fit ARIMA/SARIMA candidate models
-- [ ] Run residual diagnostics
-- [ ] Evaluate forecasts out of sample
-- [ ] Document results and conclusions
-
----
-
-## Purpose
-
-The repository is intended as a practical study of **classical statistical time-series methods** with applications relevant to quantitative analysis and forecasting. The emphasis is not only on fitting models, but also on understanding the assumptions, diagnostics and statistical behaviour behind them.
+ 
