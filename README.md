@@ -13,7 +13,7 @@ The repository currently contains a working implementation of the **Hurst expone
 
 ---
 
-## 1. Hurst Exponent — Rescaled Range Analysis
+## 1. Hurst Exponent (R/S)
 
 The first project implements the **Hurst exponent** \(H\) using the classical **Rescaled Range (R/S)** approach.
 
@@ -69,14 +69,13 @@ Potential extensions:
 
 ---
 
-## 2. Time Series Analysis — Decomposition & SARIMA
+## 2. Time Series Analysis  Decomposition & SARIMA/SARIMAX
 
 > **Status: TBD / under development**
 
 The second project will be an end-to-end time-series modelling and forecasting workflow built around a real-world series.
 
 The objective is to move from **raw observations to a statistically validated forecasting model**, with particular emphasis on decomposition, stationarity and seasonal dynamics.
-
 
 
 #### Time-series decomposition
